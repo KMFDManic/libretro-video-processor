@@ -29,7 +29,7 @@ else ifneq ($(findstring MINGW,$(shell uname -a)),)
 	system_platform = win
 endif
 
-TARGET_NAME := v4l2
+TARGET_NAME := video_processor
 LIBV4L2		= -lv4l2
 
 ifneq ($(findstring Linux,$(shell uname -a)),)
@@ -117,7 +117,7 @@ else
    CFLAGS += -O3
 endif
 
-OBJECTS := v4l2.o
+OBJECTS := video_processor_v4l2.o
 CFLAGS += -Wall -pedantic $(fpic)
 
 ifneq (,$(findstring qnx,$(platform)))
