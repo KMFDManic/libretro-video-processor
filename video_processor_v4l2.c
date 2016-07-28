@@ -244,8 +244,8 @@ RETRO_API void VIDEOPROC_CORE_PREFIX(retro_set_environment)(retro_environment_t 
 	enumerate_audio_devices(audio_devices, sizeof(audio_devices));
 
 	struct retro_variable envvars[] = {
-		{ "v4l2_videodev", video_devices },
-		{ "v4l2_audiodev", audio_devices },
+		{ "videoproc_videodev", video_devices },
+		{ "videoproc_audiodev", audio_devices },
 		{ NULL, NULL }
 	};
 
@@ -283,8 +283,8 @@ RETRO_API void VIDEOPROC_CORE_PREFIX(retro_init)(void)
 
 static bool open_devices(void)
 {
-	struct retro_variable videodev = { "v4l2_videodev", NULL };
-	struct retro_variable audiodev = { "v4l2_audiodev", NULL };
+	struct retro_variable videodev = { "videoproc_videodev", NULL };
+	struct retro_variable audiodev = { "videoproc_audiodev", NULL };
 	struct v4l2_capability caps;
 	int error;
 
@@ -434,9 +434,9 @@ RETRO_API void VIDEOPROC_CORE_PREFIX(retro_get_system_info)(struct retro_system_
 {
 	info->library_name = LIBRARY_NAME;
 	info->library_version = LIBRARY_VERSION;
-	info->valid_extensions = "";
-	info->need_fullpath = true;
-	info->block_extract = true;
+   info->valid_extensions = NULL; /* Anything is fine, we don't care. */
+	info->need_fullpath    = false;
+	info->block_extract    = true;
 }
 
 RETRO_API void VIDEOPROC_CORE_PREFIX(retro_get_system_av_info)(struct retro_system_av_info *info)
