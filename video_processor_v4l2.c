@@ -101,7 +101,10 @@ static void audio_callback(void)
 		const int frames = snd_pcm_readi(audio_handle,
             audio_data, sizeof(audio_data) / 4);
 
-		VIDEOPROC_CORE_PREFIX(audio_sample_batch_cb)(audio_data, frames);
+		if (frames < 0)
+			snd_pcm_recover(audio_handle, frames, true);
+		else
+			VIDEOPROC_CORE_PREFIX(audio_sample_batch_cb)(audio_data, frames);
 	}
 }
 
